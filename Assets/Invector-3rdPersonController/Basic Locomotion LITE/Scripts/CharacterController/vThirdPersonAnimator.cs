@@ -5,9 +5,6 @@ namespace Invector.CharacterController
 {
     public abstract class vThirdPersonAnimator : vThirdPersonMotor
     {
-		[HideInInspector]
-		public bool attack;
-
         public virtual void UpdateAnimator()
         {
             if (animator == null || !animator.enabled) return;
@@ -27,9 +24,6 @@ namespace Invector.CharacterController
 
             // fre movement get the input 0 to 1
             animator.SetFloat("InputVertical", speed, 0.1f, Time.deltaTime);
-
-			if (attack)
-				animator.SetTrigger("Attack");
         }
 
         public void OnAnimatorMove()

@@ -9,7 +9,12 @@ namespace Invector.CharacterController
 {
     public abstract class vThirdPersonMotor : MonoBehaviour
     {
-        #region Variables        
+        #region Variables    
+        
+        #region Photon view
+        [Header("Photon View")]
+        public PhotonView photonView;
+        #endregion
 
         #region Layers
         [Header("---! Layers !---")]

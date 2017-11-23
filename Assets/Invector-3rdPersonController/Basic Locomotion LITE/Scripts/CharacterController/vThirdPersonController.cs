@@ -5,6 +5,10 @@ namespace Invector.CharacterController
 {
     public class vThirdPersonController : vThirdPersonAnimator
     {
+        public GameObject beam;
+        public Transform origin;
+        private Coroutine shootCoroutine;
+        
         protected virtual void Start()
         {
 #if !UNITY_EDITOR
@@ -37,12 +41,47 @@ namespace Invector.CharacterController
                 animator.CrossFadeInFixedTime("Jump", 0.1f);
             else
                 animator.CrossFadeInFixedTime("JumpMove", 0.2f);
+            
+            cancelShoot();
         }
 
 		public virtual void Attack()
 		{
-			animator.CrossFadeInFixedTime("spell", 0.2f);
+		    if (isJumping || !isGrounded)
+            {
+                return;
+            }
+			Debug.Log ("Attack");
+			photonView.RPC ("RPCAttack", PhotonTargets.All);
 		}
+
+		[PunRPC]
+		public virtual void RPCAttack() 
+        {
+            if (animator == null)
+                animator = GetComponent<Animator> ();    
+            animator.CrossFadeInFixedTime("spell", 0.2f);
+            
+            cancelShoot();
+            shootCoroutine = StartCoroutine(ShootBeam());
+        }
+        
+        IEnumerator ShootBeam()
+        {
+            yield return new WaitForSeconds(1.5f);
+            beam.SetActive(true);
+            yield return new WaitForSeconds(.75f);
+            beam.SetActive(false);
+        }
+        
+        private void cancelShoot()
+        {
+            if (shootCoroutine != null)
+            {
+                StopCoroutine(shootCoroutine);
+            }
+            beam.SetActive(false);
+        }
 
         public virtual void RotateWithAnotherTransform(Transform referenceTransform)
         {
