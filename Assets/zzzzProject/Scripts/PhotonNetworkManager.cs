@@ -7,7 +7,7 @@ public class PhotonNetworkManager : Photon.MonoBehaviour {
     public GameObject lobbyCamera;
     public GameObject light;
     public GameObject player;
-    [SerializeField] public Transform[] spawnPoint;
+    [SerializeField] public Transform[] spawnPoints;
 
     private const string GAME_VERSION = "0.1";
 
@@ -32,7 +32,8 @@ public class PhotonNetworkManager : Photon.MonoBehaviour {
         Debug.Log ("Joined room");
         lobbyCamera.SetActive (false);
 		light.SetActive (false);
-        PhotonNetwork.Instantiate (player.name, spawnPoint[0].position, spawnPoint[0].rotation, 0);
+		int select = Random.Range (0, spawnPoints.Length);
+        PhotonNetwork.Instantiate (player.name, spawnPoints[select].position, spawnPoints[select].rotation, 0);
     }
 
     public virtual void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
