@@ -6,8 +6,14 @@ using UnityEngine.UI;
 public class HealthManager : Photon.MonoBehaviour, IPunObservable
 {
     public Slider healthBar;
+//    private float health;
+
     private float health;
-    
+    public float Health
+    {
+        get { return health; }
+    }
+
     void Start()
     {
         healthBar.value = 1;
@@ -20,22 +26,9 @@ public class HealthManager : Photon.MonoBehaviour, IPunObservable
         healthBar.value = health;
     }
 
-    private void OnTriggerStay(Collider other)
+    public void takeDamage(float damage)
     {
-        if (other.gameObject.name.Equals("Beam"))
-        {
-            print("TRIGGERSTAY: " + health);
-            health -= .01f;
-        }
-
-		if (other.gameObject.name.Equals("Lazer"))
-		{
-			if (!gameObject.name.Equals("Beam")) 
-			{
-				print("TRIGGERSTAY: " + health);
-				health -= .01f;
-			}
-		}
+        health -= .01f;
     }
 
     void IPunObservable.OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) 
