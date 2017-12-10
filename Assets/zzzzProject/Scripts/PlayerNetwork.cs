@@ -2,22 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerNetwork : MonoBehaviour {
-	public GameObject playerCamera;
-	[SerializeField] public MonoBehaviour[] playerControlScripts;
+public class PlayerNetwork : MonoBehaviour 
+{
+//	public GameObject playerCamera;
+	[SerializeField] public GameObject[] playerGameObjects;
+ 	[SerializeField] public MonoBehaviour[] playerControlScripts;
 
 	private PhotonView photonView;
 
-	void Start() {
+	void Start() 
+	{
 		photonView = GetComponent<PhotonView>();
 		initialize ();
 	}
 
-	private void initialize() {
+	private void initialize() 
+	{
 		if (!photonView.isMine) {
-			playerCamera.SetActive (false);
-			foreach (MonoBehaviour m in playerControlScripts) {
+//			playerCamera.SetActive (false);
+			foreach (MonoBehaviour m in playerControlScripts) 
+			{
 				m.enabled = false;
+			}
+			
+			foreach (GameObject go in playerGameObjects)
+			{
+				go.SetActive(false);
 			}
 		}
 	}

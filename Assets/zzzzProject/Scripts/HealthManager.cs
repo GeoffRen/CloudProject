@@ -33,9 +33,12 @@ public class HealthManager : Photon.MonoBehaviour, IPunObservable
 
     void IPunObservable.OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) 
     {
-        if (stream.isWriting) {
+        if (stream.isWriting) 
+        {
             stream.SendNext (health);
-        } else {
+        } 
+        else 
+        {
             health = (float)stream.ReceiveNext ();
         }
     }    

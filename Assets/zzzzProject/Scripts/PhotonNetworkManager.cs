@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhotonNetworkManager : Photon.MonoBehaviour {
+public class PhotonNetworkManager : Photon.MonoBehaviour 
+{
 
     public GameObject lobbyCamera;
     public GameObject light;
@@ -11,7 +12,8 @@ public class PhotonNetworkManager : Photon.MonoBehaviour {
 
     private const string GAME_VERSION = "0.1";
 
-    void Awake () {
+    void Awake () 
+    {
         Debug.Log ("Connect to network");
         PhotonNetwork.autoJoinLobby = false;
         PhotonNetwork.ConnectUsingSettings (GAME_VERSION);
@@ -28,7 +30,8 @@ public class PhotonNetworkManager : Photon.MonoBehaviour {
         Debug.Log("Created room");
     }
 
-    public virtual void OnJoinedRoom() {
+    public virtual void OnJoinedRoom() 
+    {
         Debug.Log ("Joined room");
         lobbyCamera.SetActive (false);
 		light.SetActive (false);
