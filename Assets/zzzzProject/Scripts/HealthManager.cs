@@ -27,6 +27,15 @@ public class HealthManager : Photon.MonoBehaviour, IPunObservable
             print("TRIGGERSTAY: " + health);
             health -= .01f;
         }
+
+		if (other.gameObject.name.Equals("Lazer"))
+		{
+			if (!gameObject.name.Equals("Beam")) 
+			{
+				print("TRIGGERSTAY: " + health);
+				health -= .01f;
+			}
+		}
     }
 
     void IPunObservable.OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) 
