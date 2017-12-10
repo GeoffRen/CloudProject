@@ -47,9 +47,8 @@ namespace Invector.CharacterController
             if (cc != null)
                 cc.Init();
 
-//            tpCamera = FindObjectOfType<vThirdPersonCamera>();
             tpCamera = transform.parent.gameObject.GetComponentInChildren<vThirdPersonCamera>();
-            if (tpCamera) tpCamera.SetMainTarget(this.transform);
+            if (tpCamera) tpCamera.SetMainTarget(transform);
 
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;

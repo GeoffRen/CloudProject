@@ -9,21 +9,69 @@ namespace Invector.CharacterController
         {
             if (animator == null || !animator.enabled) return;
 
-            animator.SetBool("IsStrafing", isStrafing);
-            animator.SetBool("IsGrounded", isGrounded);
-            animator.SetFloat("GroundDistance", groundDistance);
+            photonView.RPC("RPCIsStrafing", PhotonTargets.All, isStrafing);
+            photonView.RPC("RPCIsGrounded", PhotonTargets.All, isGrounded);
+            photonView.RPC("RPCGroundDistance", PhotonTargets.All, groundDistance);
 
             if (!isGrounded)
-                animator.SetFloat("VerticalVelocity", verticalVelocity);
+                photonView.RPC("RPCVerticalVelocity", PhotonTargets.All, verticalVelocity);
 
             if (isStrafing)
             {
                 // strafe movement get the input 1 or -1
-                animator.SetFloat("InputHorizontal", direction, 0.1f, Time.deltaTime);
+                photonView.RPC("RPCInputHorizontal", PhotonTargets.All, direction);
             }
 
-            // fre movement get the input 0 to 1
-            animator.SetFloat("InputVertical", speed, 0.1f, Time.deltaTime);
+            // free movement get the input 0 to 1
+            photonView.RPC("RPCInputVertical", PhotonTargets.All, speed);
+        }
+        
+        [PunRPC]
+        protected virtual void RPCIsStrafing(bool rpcIsStrafing)
+        {
+            if (animator == null)
+                animator = GetComponent<Animator> ();  
+            animator.SetBool("IsStrafing", rpcIsStrafing);
+        }
+        
+        [PunRPC]
+        protected virtual void RPCIsGrounded(bool rpcIsGrounded)
+        {
+            if (animator == null)
+                animator = GetComponent<Animator> ();  
+            animator.SetBool("IsGrounded", rpcIsGrounded);
+        }
+        
+        [PunRPC]
+        protected virtual void RPCGroundDistance(float rpcGroundDistance)
+        {
+            if (animator == null)
+                animator = GetComponent<Animator> ();  
+            animator.SetFloat("GroundDistance", rpcGroundDistance);
+        }
+        
+        [PunRPC]
+        protected virtual void RPCVerticalVelocity(float rpcVerticalVelocity)
+        {
+            if (animator == null)
+                animator = GetComponent<Animator> ();  
+            animator.SetFloat("VerticalVelocity", rpcVerticalVelocity);
+        }
+        
+        [PunRPC]
+        protected virtual void RPCInputHorizontal(float rpcDirection)
+        {
+            if (animator == null)
+                animator = GetComponent<Animator> ();
+            animator.SetFloat("InputHorizontal", rpcDirection, 0.1f, Time.deltaTime);
+        }
+        
+        [PunRPC]
+        protected virtual void RPCInputVertical(float rpcSpeed)
+        {
+            if (animator == null)
+                animator = GetComponent<Animator> ();  
+            animator.SetFloat("InputVertical", rpcSpeed, 0.1f, Time.deltaTime);
         }
 
         public void OnAnimatorMove()

@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class HealthManager : Photon.MonoBehaviour, IPunObservable
 {
+    public const float MaxHealth = 1;
+    
     public Slider healthBar;
-//    private float health;
 
     private float health;
     public float Health
@@ -16,9 +17,8 @@ public class HealthManager : Photon.MonoBehaviour, IPunObservable
 
     void Start()
     {
-        healthBar.value = 1;
-        health = 1;
-        print(healthBar.value);
+        healthBar.value = MaxHealth;
+        health = MaxHealth;
     }
     
     void Update()
@@ -26,9 +26,17 @@ public class HealthManager : Photon.MonoBehaviour, IPunObservable
         healthBar.value = health;
     }
 
+    private void FixedUpdate()
+    {
+        if (health < MaxHealth)
+        {
+            health += .0005f;
+        }
+    }
+
     public void takeDamage(float damage)
     {
-        health -= .01f;
+        health -= damage;
     }
 
     void IPunObservable.OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) 

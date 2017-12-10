@@ -38,11 +38,27 @@ namespace Invector.CharacterController
             isJumping = true;
             // trigger jump animations            
             if (_rigidbody.velocity.magnitude < 1)
-                animator.CrossFadeInFixedTime("Jump", 0.1f);
+                photonView.RPC("RPCJump", PhotonTargets.All);
             else
-                animator.CrossFadeInFixedTime("JumpMove", 0.2f);
-            
+                photonView.RPC("RPCJumpMove", PhotonTargets.All);
+        }
+        
+        [PunRPC]
+        protected virtual void RPCJump()
+        {
+            if (animator == null)
+                animator = GetComponent<Animator> ();  
             cancelShoot();
+            animator.CrossFadeInFixedTime("Jump", 0.1f);
+        }
+        
+        [PunRPC]
+        protected virtual void RPCJumpMove()
+        {
+            if (animator == null)
+                animator = GetComponent<Animator> ();  
+            cancelShoot();
+            animator.CrossFadeInFixedTime("JumpMove", 0.2f);
         }
 
 		public virtual void Attack()
@@ -56,7 +72,7 @@ namespace Invector.CharacterController
 		}
 
 		[PunRPC]
-		public virtual void RPCAttack() 
+		protected virtual void RPCAttack() 
         {
             if (animator == null)
                 animator = GetComponent<Animator> ();    
@@ -82,6 +98,9 @@ namespace Invector.CharacterController
             }
             beam.SetActive(false);
         }
+        
+        [PunRPC]
+        
 
         public virtual void RotateWithAnotherTransform(Transform referenceTransform)
         {
