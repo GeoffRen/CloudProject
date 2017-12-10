@@ -32,3 +32,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Should've ignored this previously
+*.DS_Store

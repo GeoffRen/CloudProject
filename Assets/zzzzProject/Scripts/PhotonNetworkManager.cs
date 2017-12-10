@@ -32,8 +32,10 @@ public class PhotonNetworkManager : Photon.MonoBehaviour {
         Debug.Log ("Joined room");
         lobbyCamera.SetActive (false);
 		light.SetActive (false);
-		int select = Random.Range (0, spawnPoints.Length);
-        PhotonNetwork.Instantiate (player.name, spawnPoints[select].position, spawnPoints[select].rotation, 0);
+        int spawnPoint = (PhotonNetwork.playerList.Length - 1) % spawnPoints.Length;
+        Debug.Log("Current number of players: " + PhotonNetwork.playerList.Length);
+        Debug.Log("Spawning at spawn number " + spawnPoint);
+        PhotonNetwork.Instantiate (player.name, spawnPoints[spawnPoint].position, spawnPoints[spawnPoint].rotation, 0);
     }
 
     public virtual void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
