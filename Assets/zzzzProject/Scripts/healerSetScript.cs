@@ -15,7 +15,7 @@ public class healerSetScript : MonoBehaviour {
 			float x = Random.Range (-30,30);
 			float y = 1;
 			float z = Random.Range(-30,30);
-			Instantiate (healer, new Vector3(x,y,z), Quaternion.identity);
+			PhotonNetwork.Instantiate (healer.name, new Vector3(x,y,z), Quaternion.identity, 0);
 		}
 		
 	}
@@ -28,13 +28,13 @@ public class healerSetScript : MonoBehaviour {
 			GameObject[] hs = GameObject.FindGameObjectsWithTag ("Healers");
 			foreach (GameObject h in hs) 
 			{
-				Destroy (h.gameObject);
+				PhotonNetwork.Destroy (h.gameObject);
 			}
 			for (int i = 0; i < 5; ++i) {
 				float x = Random.Range (-30, 30);
 				float y = 1;
 				float z = Random.Range (-30, 30);
-				Instantiate (healer, new Vector3 (x, y, z), Quaternion.identity);
+				PhotonNetwork.Instantiate (healer.name, new Vector3 (x, y, z), Quaternion.identity, 0);
 			}
 			timer = 500;
 		}

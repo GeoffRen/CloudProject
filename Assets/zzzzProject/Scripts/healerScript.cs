@@ -18,10 +18,10 @@ public class healerScript : MonoBehaviour {
 	{
 		if (other.gameObject.tag.Equals("Player"))
 		{
-			Destroy (this.gameObject);
+			PhotonNetwork.Destroy (this.gameObject);
 			var healthManager = other.gameObject.GetComponent<HealthManager>();
 			Debug.Log(string.Format("TRIGGERSTAY: {0} Health at: {1}", other.gameObject.name, healthManager.Health));
-			healthManager.takeDamage(-.01f);
+			healthManager.heal(0.5f);
 
 		}
 	}

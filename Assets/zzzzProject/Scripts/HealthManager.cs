@@ -26,18 +26,27 @@ public class HealthManager : Photon.MonoBehaviour, IPunObservable
         healthBar.value = health;
     }
 
-    private void FixedUpdate()
-    {
-        if (health < MaxHealth)
-        {
-            health += .0005f;
-        }
-    }
+//    private void FixedUpdate()
+//    {
+//        if (health < MaxHealth)
+//        {
+//            health += .0005f;
+//        }
+//    }
 
     public void takeDamage(float damage)
     {
         health -= damage;
     }
+
+	public void heal(float heal)
+	{
+		health += heal;
+		if (health > MaxHealth) {
+			health = MaxHealth;
+		}
+	}
+
 
     void IPunObservable.OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info) 
     {
