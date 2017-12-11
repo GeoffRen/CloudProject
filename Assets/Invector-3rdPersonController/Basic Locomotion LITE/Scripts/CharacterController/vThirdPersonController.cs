@@ -5,7 +5,7 @@ namespace Invector.CharacterController
 {
     public class vThirdPersonController : vThirdPersonAnimator
     {
-        public GameObject beam;
+        public Beam beam;
         public Transform origin;
         private Coroutine shootCoroutine;
         
@@ -85,9 +85,9 @@ namespace Invector.CharacterController
         IEnumerator ShootBeam()
         {
             yield return new WaitForSeconds(1.5f);
-            beam.SetActive(true);
+            beam.IsShooting = true;
             yield return new WaitForSeconds(.75f);
-            beam.SetActive(false);
+            beam.IsShooting = false;
         }
         
         private void cancelShoot()
@@ -96,12 +96,9 @@ namespace Invector.CharacterController
             {
                 StopCoroutine(shootCoroutine);
             }
-            beam.SetActive(false);
+            beam.IsShooting = false;
         }
         
-        [PunRPC]
-        
-
         public virtual void RotateWithAnotherTransform(Transform referenceTransform)
         {
             var newRotation = new Vector3(transform.eulerAngles.x, referenceTransform.eulerAngles.y, transform.eulerAngles.z);
