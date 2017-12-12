@@ -9,7 +9,7 @@ public class Follow : MonoBehaviour {
 
 	void Update () {
 		Vector3 target = loc.transform.position;
-		target.y = LIGHT_HEIGHT;
+		target.y = target.y + LIGHT_HEIGHT;
 		transform.position = Vector3.Lerp (transform.position, target, Time.deltaTime);	
 	}
 }

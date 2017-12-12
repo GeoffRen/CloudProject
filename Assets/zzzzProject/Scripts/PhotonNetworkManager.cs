@@ -19,6 +19,11 @@ public class PhotonNetworkManager : Photon.MonoBehaviour
         PhotonNetwork.ConnectUsingSettings (GAME_VERSION);
     }
 
+    void Update()
+    {
+        Debug.Log(PhotonNetwork.connectionStateDetailed.ToString());
+    }
+    
     public virtual void OnConnectedToMaster()
     {
         Debug.Log("Connected to master");
@@ -63,7 +68,7 @@ public class PhotonNetworkManager : Photon.MonoBehaviour
 
     public virtual void OnDisconnectedFromPhoton()
     {
-        Debug.Log("We got disconnected form the Photon network");
+        Debug.Log("We got disconnected from the Photon network");
     }
 }
 

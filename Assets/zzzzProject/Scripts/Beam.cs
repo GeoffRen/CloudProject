@@ -47,7 +47,7 @@ public class Beam : MonoBehaviour
             if (hitObj.tag.Equals("Player"))
             {
                 var healthManager = hitObj.GetComponent<HealthManager>();
-                Debug.Log(string.Format("TRIGGERSTAY: {0} Health at: {1}", hitObj.name, healthManager.Health));
+//                Debug.Log(string.Format("TRIGGERSTAY: {0} Health at: {1}", hitObj.name, healthManager.Health));
                 healthManager.takeDamage(.01f);
             }
         }

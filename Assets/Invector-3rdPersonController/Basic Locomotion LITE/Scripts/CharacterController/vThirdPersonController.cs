@@ -69,7 +69,7 @@ namespace Invector.CharacterController
             }
 			Debug.Log ("Attack");
 			photonView.RPC ("RPCAttack", PhotonTargets.All);
-		}
+		}    
 
 		[PunRPC]
 		protected virtual void RPCAttack() 
