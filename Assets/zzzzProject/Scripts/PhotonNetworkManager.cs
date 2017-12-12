@@ -19,10 +19,10 @@ public class PhotonNetworkManager : Photon.MonoBehaviour
         PhotonNetwork.ConnectUsingSettings (GAME_VERSION);
     }
 
-    void Update()
-    {
-        Debug.Log(PhotonNetwork.connectionStateDetailed.ToString());
-    }
+//    void Update()
+//    {
+//        Debug.Log(PhotonNetwork.connectionStateDetailed.ToString());
+//    }
     
     public virtual void OnConnectedToMaster()
     {
