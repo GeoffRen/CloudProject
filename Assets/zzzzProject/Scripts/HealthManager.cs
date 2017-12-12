@@ -54,6 +54,7 @@ public class HealthManager : Photon.MonoBehaviour, IPunObservable
         if (photonView.isMine)
         {
             StartCoroutine(EnableGameOverScreen());
+            GameObject.Find("PickupSpawner").GetComponent<PickupSpawner>().cancelPickupSpawner();
         }
     }
     
